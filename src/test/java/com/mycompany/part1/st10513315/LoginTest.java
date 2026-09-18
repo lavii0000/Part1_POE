@@ -132,4 +132,83 @@ public class LoginTest {
 
         assertEquals(true, user.checkUserName());
     }
+    @Test
+    public void testGetUsernameLength() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        int expResult = 5;
+        int result = user.getUsernameLength();
+
+        assertEquals(expResult, result);
+     }
+    @Test
+    public void testIsPasswordLongEnough() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        boolean expResult = true;
+        boolean result = user.isPasswordLongEnough();
+
+        assertEquals(expResult, result);
+    }
+     @Test
+    public void testGetName() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+    );
+
+        String expResult = "Kyle Smith";
+        String result = user.getName();
+
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testIsUserRegistered() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+    );
+
+        boolean expResult = true;
+        boolean result = user.isUserRegistered();
+
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void testIsPhoneNumberInternational() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+    );
+
+        boolean expResult = true;
+        boolean result = user.isPhoneNumberInternational();
+
+        assertEquals(expResult, result);
+    }
 }
+   
+    
+    
+

@@ -139,16 +139,26 @@ public class Login {
     public String getlName() {
     if (Name == null || Surname == null) {
         return "Name not available";
-    }
+       }
 
     String fullName = Name + " " + Surname;
 
     if (fullName.length() > 0) {
         return fullName;
-    }
+       }
 
     return "Name not available";
-}
+   }
+    public boolean isUserRegistered() {
+    if (checkUserName()
+            && checkPasswordComplexity()
+            && checkCellPhoneNumber()) {
+
+        return true;
+       }
+
+    return false;
+   }
 
     boolean returnLoginStatus() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

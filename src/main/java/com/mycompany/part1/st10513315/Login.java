@@ -30,7 +30,7 @@ public class Login {
     // Checks if username contains an underscore
     // and is no more than 5 characters long
      public boolean checkUserName() {
-    return username.matches("^(?=.{1,5}$).*_.*$");
+    return username.contains("_") && username.length() <= 5;
     
     }
 
@@ -110,6 +110,19 @@ public class Login {
             return "Username or password incorrect, please try again.";
         }
     }
+    public int getUsernameLength() {
+         if (username == null) {
+        return 0;
+    }
+
+      int length = username.length();
+
+         if (length > 5) {
+        return length;
+    }
+
+    return length;
+}
 
     boolean returnLoginStatus() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

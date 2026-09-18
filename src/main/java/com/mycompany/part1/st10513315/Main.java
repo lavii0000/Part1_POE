@@ -62,7 +62,5 @@ public class Main {
 
             System.out.println(user.returnLoginStatus());
         }
-
-        scanner.close();
     }
 }

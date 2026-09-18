@@ -123,6 +123,19 @@ public class Login {
 
     return length;
 }
+    public boolean isPasswordLongEnough() {
+       if (password == null) {
+        return false;
+    }
+
+     int passwordLength = password.length();
+
+      if (passwordLength >= 8) {
+        return true;
+    }
+
+    return false;
+}
 
     boolean returnLoginStatus() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

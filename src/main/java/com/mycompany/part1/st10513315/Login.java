@@ -159,7 +159,17 @@ public class Login {
 
     return false;
    }
+   public boolean isPhoneNumberInternational() {
+    if (cellPhoneNumber == null) {
+        return false;
+        }
 
+    if (cellPhoneNumber.startsWith("+27")) {
+        return true;
+        }
+
+    return false;
+   }
     boolean returnLoginStatus() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }

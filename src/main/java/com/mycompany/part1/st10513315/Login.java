@@ -29,9 +29,9 @@ public class Login {
     
     // Checks if username contains an underscore
     // and is no more than 5 characters long
-    public boolean checkUserName() {
-
-        return username.contains("_") && username.length() <= 5;
+     public boolean checkUserName() {
+    return username.matches("^(?=.{1,5}$).*_.*$");
+    
     }
 
     // Checks password complexity

@@ -119,22 +119,35 @@ public class Login {
 
          if (length > 5) {
         return length;
-    }
+         }
 
     return length;
-}
+    }
     public boolean isPasswordLongEnough() {
        if (password == null) {
         return false;
-    }
+         }
 
      int passwordLength = password.length();
 
       if (passwordLength >= 8) {
         return true;
-    }
+         }
 
     return false;
+     }
+    public String getlName() {
+    if (Name == null || Surname == null) {
+        return "Name not available";
+    }
+
+    String fullName = Name + " " + Surname;
+
+    if (fullName.length() > 0) {
+        return fullName;
+    }
+
+    return "Name not available";
 }
 
     boolean returnLoginStatus() {

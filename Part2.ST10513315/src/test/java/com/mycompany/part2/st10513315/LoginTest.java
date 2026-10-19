@@ -4,10 +4,6 @@
  */
 package com.mycompany.part2.st10513315;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,182 +12,203 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Student
  */
 public class LoginTest {
-    
-    public LoginTest() {
-    }
-    
-    @BeforeAll
-    public static void setUpClass() {
-    }
-    
-    @AfterAll
-    public static void tearDownClass() {
-    }
-    
-    @BeforeEach
-    public void setUp() {
-    }
-    
-    @AfterEach
-    public void tearDown() {
-    }
 
-    /**
-     * Test of checkUserName method, of class Login.
-     */
     @Test
-    public void testCheckUserName() {
-        System.out.println("checkUserName");
-        Login instance = null;
-        boolean expResult = false;
-        boolean result = instance.checkUserName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckUserNameCorrect() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        assertEquals(true, user.checkUserName());
+        System.out.println("Username test passed");
     }
 
-    /**
-     * Test of checkPasswordComplexity method, of class Login.
-     */
     @Test
-    public void testCheckPasswordComplexity() {
-        System.out.println("checkPasswordComplexity");
-        Login instance = null;
-        boolean expResult = false;
-        boolean result = instance.checkPasswordComplexity();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckUserNameIncorrect() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyle!!!!!!!",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        assertEquals(false, user.checkUserName());
     }
 
-    /**
-     * Test of checkCellPhoneNumber method, of class Login.
-     */
     @Test
-    public void testCheckCellPhoneNumber() {
-        System.out.println("checkCellPhoneNumber");
-        Login instance = null;
-        boolean expResult = false;
-        boolean result = instance.checkCellPhoneNumber();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckPasswordComplexityCorrect() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        assertEquals(true, user.checkPasswordComplexity());
     }
 
-    /**
-     * Test of registerUser method, of class Login.
-     */
     @Test
-    public void testRegisterUser() {
-        System.out.println("registerUser");
-        Login instance = null;
-        String expResult = "";
-        String result = instance.registerUser();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckPasswordComplexityIncorrect() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "password",
+                "+27838898976"
+        );
+
+        assertEquals(false, user.checkPasswordComplexity());
     }
 
-    /**
-     * Test of loginUser method, of class Login.
-     */
     @Test
-    public void testLoginUser() {
-        System.out.println("loginUser");
-        String enteredUsername = "";
-        String enteredPassword = "";
-        Login instance = null;
-        boolean expResult = false;
-        boolean result = instance.loginUser(enteredUsername, enteredPassword);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckCellPhoneNumberCorrect() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        assertEquals(true, user.checkCellPhoneNumber());
     }
 
-    /**
-     * Test of returnLoginStatus method, of class Login.
-     */
     @Test
-    public void testReturnLoginStatus() {
-        System.out.println("returnLoginStatus");
-        String enteredUsername = "";
-        String enteredPassword = "";
-        Login instance = null;
-        String expResult = "";
-        String result = instance.returnLoginStatus(enteredUsername, enteredPassword);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testCheckCellPhoneNumberIncorrect() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "08966553"
+        );
+
+        assertEquals(false, user.checkCellPhoneNumber());
     }
 
-    /**
-     * Test of getUsernameLength method, of class Login.
-     */
+    @Test
+    public void testLoginSuccessful() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        assertEquals(true, user.loginUser("kyl_1", "Ch&se@ke991"));
+    }
+
+    @Test
+    public void testLoginFailed() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        assertEquals(false, user.loginUser("kyl_1", "password"));
+    }
+
+    @Test
+    public void testUsernameCorrectlyFormatted() {
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
+
+        assertEquals(true, user.checkUserName());
+    }
     @Test
     public void testGetUsernameLength() {
-        System.out.println("getUsernameLength");
-        Login instance = null;
-        int expResult = 0;
-        int result = instance.getUsernameLength();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
 
-    /**
-     * Test of isPasswordLongEnough method, of class Login.
-     */
+        int expResult = 5;
+        int result = user.getUsernameLength();
+
+        assertEquals(expResult, result);
+     }
     @Test
     public void testIsPasswordLongEnough() {
-        System.out.println("isPasswordLongEnough");
-        Login instance = null;
-        boolean expResult = false;
-        boolean result = instance.isPasswordLongEnough();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+        );
 
-    /**
-     * Test of getName method, of class Login.
-     */
-    @Test
+        boolean expResult = true;
+        boolean result = user.isPasswordLongEnough();
+
+        assertEquals(expResult, result);
+    }
+     @Test
     public void testGetName() {
-        System.out.println("getName");
-        Login instance = null;
-        String expResult = "";
-        String result = instance.getName();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+    );
 
-    /**
-     * Test of isUserRegistered method, of class Login.
-     */
+        String expResult = "Kyle Smith";
+        String result = user.getName();
+
+        assertEquals(expResult, result);
+    }
     @Test
     public void testIsUserRegistered() {
-        System.out.println("isUserRegistered");
-        Login instance = null;
-        boolean expResult = false;
-        boolean result = instance.isUserRegistered();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+    );
 
-    /**
-     * Test of isPhoneNumberInternational method, of class Login.
-     */
+        boolean expResult = true;
+        boolean result = user.isUserRegistered();
+
+        assertEquals(expResult, result);
+    }
     @Test
     public void testIsPhoneNumberInternational() {
-        System.out.println("isPhoneNumberInternational");
-        Login instance = null;
-        boolean expResult = false;
-        boolean result = instance.isPhoneNumberInternational();
+        Login user = new Login(
+                "Kyle",
+                "Smith",
+                "kyl_1",
+                "Ch&se@ke991",
+                "+27838898976"
+    );
+
+        boolean expResult = true;
+        boolean result = user.isPhoneNumberInternational();
+
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
-    
 }
+   
+    
+    
+
+
+  

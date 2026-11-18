@@ -9,12 +9,13 @@ import java.io.IOException;
 import java.util.Random;  
 
 /**
- *
+ * Part 2 + Part 3
  * @author Student
  */
 public class Message {
     
     private static final Random RANDOM = new Random();
+     private static final String JSON_FILE = "messages.json";
  
     // Text logs instead of lists/arrays
     private static final StringBuilder sentLog = new StringBuilder();

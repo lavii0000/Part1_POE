@@ -9,7 +9,7 @@ import java.util.Scanner;
  * Part 1 (register + login) continued into Part 2 (QuickChat messaging).
  * @author Student
  */
-public class Quickchat {
+public class Main {
 
     public static void main(String[] args) {
 

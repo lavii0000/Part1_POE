@@ -6,6 +6,7 @@ package com.mycompany.part1.st10513315;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;  
 
 /**
@@ -22,7 +23,14 @@ public class Message {
    
     private static int nextMessageNumber = 0;
     private static int totalSent = 0;
- 
+    
+    // ---------- Part 3 arrays 
+    private static final ArrayList<Message> sentMessage = new ArrayList<>();
+    private static final ArrayList<Message> disregardedMessages = new ArrayList<>();
+    private static final ArrayList<Message> storedMessages = new ArrayList<>();
+    private static final ArrayList<String> messageHash = new ArrayList<>();
+    private static final ArrayList<String> messageID = new ArrayList<>();
+    
     private final String messageId;
     private final int messageNumber;
     private final String recipient;
@@ -41,6 +49,15 @@ public class Message {
         this.recipient = recipient;
         this.text = text;
         this.hash = createMessageHash();
+    }
+    
+    /** Used when reading a message back from the JSON file. */
+    private Message(String id, String hash, String recipient, String text, boolean fromJson) {
+        this.messageId = id;
+        this.messageNumber = 0;
+        this.recipient = recipient;
+        this.text = text;
+        this.hash = hash;
     }
  
     private static String generateMessageId() {

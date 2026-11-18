@@ -17,10 +17,9 @@ public class Message {
     private static final Random RANDOM = new Random();
      private static final String JSON_FILE = "messages.json";
  
-    // Text logs instead of lists/arrays
+    // Part 2 log of sent messages (text)
     private static final StringBuilder sentLog = new StringBuilder();
-    private static final StringBuilder storedJson = new StringBuilder();
-    private static int storedCount = 0;
+   
     private static int nextMessageNumber = 0;
     private static int totalSent = 0;
  

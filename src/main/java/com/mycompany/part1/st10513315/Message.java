@@ -177,5 +177,28 @@ public class Message {
         if (!Files.exists(path)) {
             return;
         }
+        try {
+            String json = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
+            String str = "\"((?:\\\\.|[^\"\\\\])*)\"";
+            Pattern p = Pattern.compile(
+                    "\"messageID\"\\s*:\\s*" + str + "\\s*,\\s*"
+                    + "\"messageHash\"\\s*:\\s*" + str + "\\s*,\\s*"
+                    + "\"recipient\"\\s*:\\s*" + str + "\\s*,\\s*"
+                    + "\"message\"\\s*:\\s*" + str);
+            Matcher m = p.matcher(json);
+            while (m.find()) {
+                String id = unesc(m.group(1));
+                String hash = unesc(m.group(2));
+                if (messageHash.contains(hash)) {
+                    continue; // already loaded
+                }
+                Message msg = new Message(id, hash, unesc(m.group(3)), unesc(m.group(4)), true);
+                storedMessages.add(msg);
+                msg.register();
+            }
+        } catch (IOException e) {
+            System.out.println("Could not read messages.json: " + e.getMessage());
+        }
+    }    
 
  

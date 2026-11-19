@@ -65,12 +65,12 @@ public class Main {
 
             // ---------- PART 2: only if logged in successfully ----------
             if (loginSuccessful) {
-                runQuickChat(scanner);
+                runQuickChat(scanner,Name);
             }
         }
     }
 
-    private static void runQuickChat(Scanner scanner) {
+    private static void runQuickChat(Scanner scanner, String sender) {
         System.out.println("=========================");
         System.out.println("   Welcome to QuickChat.");
         System.out.println("=========================");
@@ -80,7 +80,7 @@ public class Main {
         int entered = 0;
 
         while (true) {
-            System.out.println("\n1) Send Messages\n2) Show recently sent messages\n3) Quit");
+            System.out.println("\n1) Send Messages\n2) Show recently sent messages\n3) Quit\n4) Stored Messages");
             int option = readInt(scanner);
 
             if (option == 1) {
@@ -89,30 +89,42 @@ public class Main {
                     continue;
                 }
                 while (entered < limit) {
+                    System.out.println("\nMessage " + (entered + 1) + " of " + limit);
                     String recipient = askRecipient(scanner);
                     String text = askText(scanner);
 
                     Message msg = new Message(recipient, text);
-                    System.out.println("1) Send Message\n2) Disregard Message\n3) Store Message to send later");
+                    System.out.println("==============================");
+                    System.out.println("1) Send Message");
+                    System.out.println("2) Disregard Message");
+                    System.out.println("3) Store Message");
+                    System.out.println("==============================");
+                    System.out.print("Choose an option: ");
                     int choice = readInt(scanner);
-                    System.out.println(msg.SentMessage(choice));
+
                     if (choice == 1) {
-                        System.out.println(msg.getDetails());
+                        System.out.println("\nMessage ID: " + msg.getMessageId());
+                        System.out.println("Message hash: " + msg.getHash());
+                        System.out.println("Sender: " + sender);
+                        System.out.println("Recipient: " + recipient);
+                        System.out.println("Message: " + text);
                     }
+                    System.out.println(msg.SentMessage(choice));
                     entered++;
                 }
                 System.out.println("\nTotal messages sent: " + Message.returnTotalMessages());
             } else if (option == 2) {
-                System.out.println("Coming Soon.");
+                System.out.println(Message.printMessages());
             } else if (option == 3) {
                 System.out.println("Goodbye.");
                 break;
+            } else if (option == 4) {
+                runStoredMessagesMenu(scanner);
             } else {
-                System.out.println("Please choose 1, 2 or 3.");
+                System.out.println("Please choose 1, 2, 3 or 4.");
             }
         }
     }
-    
         // ---------- Part 3: Stored Messages menu ----------
     private static void runStoredMessagesMenu(Scanner scanner) {
         while (true) {

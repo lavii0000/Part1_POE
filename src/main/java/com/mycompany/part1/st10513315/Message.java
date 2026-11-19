@@ -207,4 +207,38 @@ public class Message {
         }
     }    
 
- 
+            /** b. Longest stored message. */
+    public static String displayLongestMessage() {
+        String longest = null;
+        for (Message m : storedMessages) {
+            if (longest == null || m.text.length() > longest.length()) {
+                longest = m.text;
+            }
+        }
+        return longest == null ? "No stored messages." : longest;
+    }
+
+    /** c. Search by message ID (looks through sent, stored and disregarded). */
+    public static String searchByMessageId(String id) {
+        Message m = findById(id);
+        if (m == null) {
+            return "Message ID not found.";
+        }
+        return "Recipient: " + m.recipient + "\nMessage: " + m.text;
+    }
+
+    /** d. All sent or stored messages for one recipient. */
+    public static ArrayList<String> searchByRecipient(String recipient) {
+        ArrayList<String> found = new ArrayList<>();
+        for (Message m : sentMessage) {
+            if (m.recipient.equals(recipient)) {
+                found.add(m.text);
+            }
+        }
+        for (Message m : storedMessages) {
+            if (m.recipient.equals(recipient)) {
+                found.add(m.text);
+            }
+        }
+        return found;
+    }

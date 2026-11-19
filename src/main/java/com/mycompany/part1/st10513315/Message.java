@@ -168,35 +168,14 @@ public class Message {
         register();
         writeStoredFile();
     }
-        storedJson.append("  {\n")
-                .append("    \"messageID\": \"").append(esc(messageId)).append("\",\n")
-                .append("    \"messageHash\": \"").append(esc(hash)).append("\",\n")
-                .append("    \"recipient\": \"").append(esc(recipient)).append("\",\n")
-                .append("    \"message\": \"").append(esc(text)).append("\"\n")
-                .append("  }");
-        storedCount++;
- 
-        try (FileWriter fw = new FileWriter("messages.json")) {
-            fw.write("[\n" + storedJson + "\n]");
-        } catch (IOException e) {
-            System.out.println("Could not write messages.json: " + e.getMessage());
+    
+       // ================= Part 3 =================
+
+    /** Reads messages.json into the Stored Messages array (call once at start-up). */
+    public static void loadStoredMessages() {
+        Path path = Paths.get(JSON_FILE);
+        if (!Files.exists(path)) {
+            return;
         }
-    }
- 
-    private static String esc(String s) {
-        return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n");
-    }
- 
-    public String getMessageId() { return messageId; }
-    public String getHash() { return hash; }
- 
-    /** Resets static state (for unit tests). */
-    public static void resetState() {
-        sentLog.setLength(0);
-        storedJson.setLength(0);
-        storedCount = 0;
-        nextMessageNumber = 0;
-        totalSent = 0;
-    }
-}
+
  

@@ -242,3 +242,137 @@ public class Message {
         }
         return found;
     }
+    
+       /** e. Delete a message using its hash. */
+    public static String deleteByHash(String hash) {
+        for (int i = 0; i < storedMessages.size(); i++) {
+            if (storedMessages.get(i).hash.equals(hash)) {
+                String deleted = storedMessages.remove(i).text;
+                removeFromHashIdArrays(hash);
+                writeStoredFile();
+                return "Message \"" + deleted + "\" successfully deleted.";
+            }
+        }
+        for (int i = 0; i < sentMessage.size(); i++) {
+            if (sentMessage.get(i).hash.equals(hash)) {
+                String deleted = sentMessage.remove(i).text;
+                removeFromHashIdArrays(hash);
+                return "Message \"" + deleted + "\" successfully deleted.";
+            }
+        }
+        return "Message hash not found.";
+    }
+
+    /** f. Full report: sent messages, then stored messages. */
+    public static String displayReport() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("===== SENT MESSAGES =====\n");
+        if (sentMessage.isEmpty()) {
+            sb.append("None.\n");
+        }
+        for (Message m : sentMessage) {
+            sb.append(m.getDetails()).append("\n\n");
+        }
+        sb.append("===== STORED MESSAGES =====\n");
+        if (storedMessages.isEmpty()) {
+            sb.append("None.\n");
+        }
+        for (Message m : storedMessages) {
+            sb.append(m.getDetails()).append("\n\n");
+        }
+        return sb.toString().trim();
+    }
+
+    private static Message findById(String id) {
+        for (Message m : sentMessage) {
+            if (m.messageId.equals(id)) return m;
+        }
+        for (Message m : storedMessages) {
+            if (m.messageId.equals(id)) return m;
+        }
+        for (Message m : disregardedMessages) {
+            if (m.messageId.equals(id)) return m;
+        }
+        return null;
+    }
+
+    private static void removeFromHashIdArrays(String hash) {
+        int i = messageHash.indexOf(hash);
+        if (i >= 0) {
+            messageHash.remove(i);
+            messageID.remove(i);
+        }
+    }
+
+    // ---- array getters (used by the unit tests) ----
+    public static ArrayList<String> getSentMessageTexts() { return texts(sentMessage); }
+    public static ArrayList<String> getDisregardedMessageTexts() { return texts(disregardedMessages); }
+    public static ArrayList<String> getStoredMessageTexts() { return texts(storedMessages); }
+    public static ArrayList<String> getMessageHashes() { return new ArrayList<>(messageHash); }
+    public static ArrayList<String> getMessageIds() { return new ArrayList<>(messageID); }
+
+    private static ArrayList<String> texts(ArrayList<Message> list) {
+        ArrayList<String> out = new ArrayList<>();
+        for (Message m : list) {
+            out.add(m.text);
+        }
+        return out;
+    }
+
+    // ---- JSON helpers ----
+    private static void writeStoredFile() {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < storedMessages.size(); i++) {
+            Message m = storedMessages.get(i);
+            if (i > 0) {
+                sb.append(",\n");
+            }
+            sb.append("  {\n")
+              .append("    \"messageID\": \"").append(esc(m.messageId)).append("\",\n")
+              .append("    \"messageHash\": \"").append(esc(m.hash)).append("\",\n")
+              .append("    \"recipient\": \"").append(esc(m.recipient)).append("\",\n")
+              .append("    \"message\": \"").append(esc(m.text)).append("\"\n")
+              .append("  }");
+        }
+        try (FileWriter fw = new FileWriter(JSON_FILE)) {
+            fw.write("[\n" + sb + "\n]");
+        } catch (IOException e) {
+            System.out.println("Could not write messages.json: " + e.getMessage());
+        }
+    }
+
+    private static String esc(String s) {
+        return s.replace("\\", "\\\\").replace("\"", "\\\"").replace("\n", "\\n");
+    }
+
+    private static String unesc(String s) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == '\\' && i + 1 < s.length()) {
+                char n = s.charAt(++i);
+                sb.append(n == 'n' ? '\n' : n);
+            } else {
+                sb.append(c);
+            }
+        }
+        return sb.toString();
+    }
+
+    public String getMessageId() { return messageId; }
+    public String getHash() { return hash; }
+    public String getRecipient() { return recipient; }
+    public String getText() { return text; }
+
+    /** Resets static state (for unit tests). */
+    public static void resetState() {
+        sentLog.setLength(0);
+        sentMessage.clear();
+        disregardedMessages.clear();
+        storedMessages.clear();
+        messageHash.clear();
+        messageID.clear();
+        nextMessageNumber = 0;
+        totalSent = 0;
+    }
+}

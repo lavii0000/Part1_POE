@@ -162,11 +162,12 @@ public class Message {
         return totalSent;
     }
  
-    /** Stores messages in messages.json. */
+     /** Stores the message in the stored array and in messages.json. */
     public void storeMessage() {
-        if (storedCount > 0) {
-            storedJson.append(",\n");
-        }
+        storedMessages.add(this);
+        register();
+        writeStoredFile();
+    }
         storedJson.append("  {\n")
                 .append("    \"messageID\": \"").append(esc(messageId)).append("\",\n")
                 .append("    \"messageHash\": \"").append(esc(hash)).append("\",\n")

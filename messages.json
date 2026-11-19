@@ -1,14 +1,8 @@
 [
   {
-    "messageID": "0000000002",
-    "messageHash": "00:1:WHERETIME",
-    "recipient": "+27838884567",
-    "message": "Where are you? You are late! I have asked you to be on time."
-  },
-  {
-    "messageID": "0000000005",
-    "messageHash": "00:4:OKYOU",
-    "recipient": "+27838884567",
-    "message": "Ok, I am leaving without you."
+    "messageID": "8910195518",
+    "messageHash": "89:0:DIDCAKE",
+    "recipient": "+27834557896",
+    "message": "Did you get cake?"
   }
 ]

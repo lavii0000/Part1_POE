@@ -212,7 +212,7 @@ public class Message {
         if (storedMessages.isEmpty()) {
         return "No stored messages.";
         }
-        StringBuilder sb = new StringBuilder();
+    StringBuilder sb = new StringBuilder();
         for (Message m : storedMessages) {
         sb.append("Sender: Developer | Recipient: ").append(m.recipient).append("\n");
         }

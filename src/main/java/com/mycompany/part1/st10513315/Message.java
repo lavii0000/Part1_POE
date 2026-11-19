@@ -112,7 +112,8 @@ public class Message {
  
         firstWord = firstWord.replaceAll("[^A-Za-z0-9]", "");
         lastWord = lastWord.replaceAll("[^A-Za-z0-9]", "");
- 
+        
+        String idStart = messageId.length() >= 2 ? messageId.substring(0, 2) : messageId;
         return (messageId.substring(0, 2) + ":" + messageNumber + ":" + firstWord + lastWord).toUpperCase();
     }
  

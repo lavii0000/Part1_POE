@@ -4,6 +4,7 @@
 
 package com.mycompany.part1.st10513315;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 /**
  * Part 1 (register + login) continued into Part 2 (QuickChat messaging).
@@ -108,6 +109,57 @@ public class Main {
                 break;
             } else {
                 System.out.println("Please choose 1, 2 or 3.");
+            }
+        }
+    }
+    
+        // ---------- Part 3: Stored Messages menu ----------
+    private static void runStoredMessagesMenu(Scanner scanner) {
+        while (true) {
+            System.out.println("\n--- STORED MESSAGES ---");
+            System.out.println("a) Display sender and recipient of all stored messages");
+            System.out.println("b) Display the longest stored message");
+            System.out.println("c) Search for a message ID");
+            System.out.println("d) Search for all messages to a recipient");
+            System.out.println("e) Delete a message using its hash");
+            System.out.println("f) Display report");
+            System.out.println("g) Back");
+            System.out.print("Choose: ");
+            String pick = scanner.nextLine().trim().toLowerCase();
+
+            switch (pick) {
+                case "a":
+                    System.out.println(Message.displayStoredRecipients());
+                    break;
+                case "b":
+                    System.out.println("Longest stored message: " + Message.displayLongestMessage());
+                    break;
+                case "c":
+                    System.out.print("Enter message ID: ");
+                    System.out.println(Message.searchByMessageId(scanner.nextLine().trim()));
+                    break;
+                case "d":
+                    System.out.print("Enter recipient cell number: ");
+                    ArrayList<String> found = Message.searchByRecipient(scanner.nextLine().trim());
+                    if (found.isEmpty()) {
+                        System.out.println("No messages found for that recipient.");
+                    } else {
+                        for (String s : found) {
+                            System.out.println("- " + s);
+                        }
+                    }
+                    break;
+                case "e":
+                    System.out.print("Enter message hash: ");
+                    System.out.println(Message.deleteByHash(scanner.nextLine().trim()));
+                    break;
+                case "f":
+                    System.out.println(Message.displayReport());
+                    break;
+                case "g":
+                    return;
+                default:
+                    System.out.println("Please choose a, b, c, d, e, f or g.");
             }
         }
     }

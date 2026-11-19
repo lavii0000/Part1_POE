@@ -205,7 +205,19 @@ public class Message {
         } catch (IOException e) {
             System.out.println("Could not read messages.json: " + e.getMessage());
         }
-    }    
+    }   
+    
+        /** a. Sender/recipient of all stored messages. */
+    public static String displayStoredRecipients() {
+        if (storedMessages.isEmpty()) {
+        return "No stored messages.";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (Message m : storedMessages) {
+        sb.append("Sender: Developer | Recipient: ").append(m.recipient).append("\n");
+        }
+        return sb.toString().trim();
+    }
 
             /** b. Longest stored message. */
     public static String displayLongestMessage() {

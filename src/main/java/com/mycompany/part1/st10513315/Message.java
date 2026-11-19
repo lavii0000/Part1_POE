@@ -123,8 +123,12 @@ public class Message {
             case 1:
                 sentLog.append(getDetails()).append("\n\n");
                 totalSent++;
+                sentMessage.add(this);
+                register();
                 return "Message successfully sent.";
             case 2:
+                disregardedMessages.add(this);
+                register();
                 return "Press 0 to delete the message.";
             case 3:
                 storeMessage();
@@ -132,6 +136,12 @@ public class Message {
             default:
                 return "Invalid option.";
         }
+    }
+    
+    // keeps the Message Hash and Message ID arrays up to date
+    private void register() {
+        messageHash.add(hash);
+        messageID.add(messageId);
     }
  
     public String getDetails() {

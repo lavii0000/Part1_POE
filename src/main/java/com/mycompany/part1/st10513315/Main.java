@@ -11,6 +11,8 @@ import java.util.Scanner;
  * @author Student
  */
 public class Main {
+    
+    private static MessageStore store;
 
     public static void main(String[] args) {
 
@@ -71,6 +73,7 @@ public class Main {
     }
 
     private static void runQuickChat(Scanner scanner, String sender) {
+        store = new MessageStore(sender);
         System.out.println("=========================");
         System.out.println("   Welcome to QuickChat.");
         System.out.println("=========================");
